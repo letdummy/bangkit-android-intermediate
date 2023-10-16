@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">StoryMu</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_logo">Logo StoryMu</string>
+    <string name="header">Welcome to Storymu</string>
+
+    <string name="header_1">Publish\nYour Wonderful\nStory</string>
+    <string name="header_2">Share\nYour Code\nJourney</string>
+    <string name="header_3">Post\nYour Own\nAnalysis</string>
+    <string name="login">Login</string>
+    <string name="login_hook">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="signup_hook">Have an account already?</string>
+    <string name="username">Username</string>
+
+    <!-- Notification Strings -->
+    <string name="ne_emailTaken">Email already taken</string>
+    <string name="ne_emailInvalid">Email is invalid</string>
+    <string name="ne_passwordInvalid">Password is invalid</string>
+
+    <string name="ns_login">Logged in successfully</string>
+    <string name="ns_register">Signed up successfully</string>
+
+    <!-- Item Layout Strings -->
+    <string name="item_image">Uploaded image by user</string>
+    <string name="item_author">by Tokopedia</string>
+    <string name="item_title">Cara membuka toko di tokopedia</string>
+    <string name="item_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+
+
+
+</resources>

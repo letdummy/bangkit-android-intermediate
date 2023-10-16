@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomEditText">
+        <attr name="useFor" format="string" />
+    </declare-styleable>
+
+    <!-- nf stand for notification -->
+    <declare-styleable name="CustomNotification">
+        <attr name="nfType" format="string" />
+        <attr name="nfUsage" format="string" />
+    </declare-styleable>
+</resources>
