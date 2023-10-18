@@ -11,11 +11,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.toColor
 import com.sekalisubmit.storymu.R
 
-class Notification: ConstraintLayout {
+class CNotification: ConstraintLayout {
 
-    private var nfUsage: String? = null // you can  assign "error" or "success"
-    private var nfType: String? = null // for "success" you can assign "login" or "register",
-    // for "error" you can assign "emailTaken", "invalidEmail", or "invalidPassword"
+    private var nfUsage: String? = null
+    private var nfType: String? = null
 
     private lateinit var nfIcon: ImageView
     private lateinit var nfText: TextView
@@ -53,6 +52,9 @@ class Notification: ConstraintLayout {
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun setNotification(nfUsage: String?, nfType: String? = "success"){
         val notification = findViewById<ConstraintLayout>(R.id.notification_container)
+        // usage: "error" or "success"
+        // type for "success":  you can assign "login" or "register",
+        // type for "error": you can assign "emailTaken", "invalidEmail", or "invalidPassword"
         when (nfUsage){
             "error" -> {
                 nfColor = context.getColor(R.color.error).toColor()

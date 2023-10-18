@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.sekalisubmit.storymu.R
 
-class Button : AppCompatButton {
+class CButton : AppCompatButton {
 
     private lateinit var enabledBackground: Drawable
     private lateinit var disabledBackground: Drawable

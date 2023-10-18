@@ -61,7 +61,7 @@
         android:contentDescription="@string/header"
         android:scaleType="fitXY"
         android:src="@drawable/image_analyst"
-        app:layout_constraintStart_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/imgHeader2" />
 
     <TextView
         android:id="@+id/txtHeader3"
@@ -74,9 +74,6 @@
         app:layout_constraintStart_toStartOf="@+id/imgHeader3"
         android:layout_marginStart="50dp"
         />
-
-
-
 
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
@@ -118,9 +115,9 @@
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="@string/login"
         android:textSize="20sp"
         android:padding="15dp"
         android:layout_marginHorizontal="30dp"
@@ -129,20 +126,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:backgroundTint="?android:attr/colorButtonNormal"
         />
 
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="@string/sign_up"
         android:textSize="20sp"
         android:padding="15dp"
         android:layout_marginHorizontal="30dp"
         android:fontFamily="@font/quicksand_bold"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:backgroundTint="?android:attr/colorButtonNormal"
         android:layout_marginTop="10dp"
         />
@@ -158,4 +157,5 @@
             android:src="@drawable/storymu"
             android:contentDescription="@string/app_logo"
             />
+
 </androidx.constraintlayout.motion.widget.MotionLayout>

@@ -14,8 +14,8 @@ class Login(
     @ColumnInfo(name = "email")
     var email: String,
 
-    @ColumnInfo(name = "password")
-    var password: String? = null,
+    @ColumnInfo(name = "name")
+    var name: String? = null,
 
     @ColumnInfo(name = "token")
     var token: String? = null

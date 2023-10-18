@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">StoryMu</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="app_logo">Logo StoryMu</string>
     <string name="header">Welcome to Storymu</string>
 
@@ -15,6 +14,9 @@
     <string name="password">Password</string>
     <string name="signup_hook">Have an account already?</string>
     <string name="username">Username</string>
+    <string name="logout">Logout</string>
+
+
 
     <!-- Notification Strings -->
     <string name="ne_emailTaken">Email already taken</string>
@@ -28,8 +30,7 @@
     <string name="item_image">Uploaded image by user</string>
     <string name="item_author">by Tokopedia</string>
     <string name="item_title">Cara membuka toko di tokopedia</string>
-    <string name="item_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
-
+    <string name="item_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</string>
 
 
 </resources>

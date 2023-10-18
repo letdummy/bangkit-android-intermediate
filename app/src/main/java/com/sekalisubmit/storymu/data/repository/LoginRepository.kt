@@ -1,6 +1,7 @@
 package com.sekalisubmit.storymu.data.repository
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import com.sekalisubmit.storymu.data.local.room.login.Login
 import com.sekalisubmit.storymu.data.local.room.login.LoginDao
 import com.sekalisubmit.storymu.data.local.room.login.LoginRoomDatabase
@@ -23,18 +24,11 @@ class LoginRepository(application: Application) {
         }
     }
 
-    fun update(login: Login) {
+    fun delete() {
         executorService.execute {
-            loginDao.update(login)
+            loginDao.delete()
         }
     }
 
-    fun delete(login: Login) {
-        executorService.execute {
-            loginDao.delete(login)
-        }
-    }
-
-    fun getUserToken(email: String) = loginDao.getUserToken(email)
-
+    fun getUserData(): LiveData<Login> = loginDao.getUserData()
 }

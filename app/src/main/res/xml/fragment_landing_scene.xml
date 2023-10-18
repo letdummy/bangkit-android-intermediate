@@ -54,7 +54,7 @@
         </Constraint>
         <Constraint
             android:id="@+id/imgHeader3"
-            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgHeader2"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
     </ConstraintSet>

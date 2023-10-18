@@ -9,11 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
+import com.sekalisubmit.storymu.data.local.UserPreference
+import com.sekalisubmit.storymu.data.local.dataStore
+import com.sekalisubmit.storymu.data.local.room.login.Login
+import com.sekalisubmit.storymu.data.remote.response.LoginResponse
 import com.sekalisubmit.storymu.data.remote.response.RegisterResponse
 import com.sekalisubmit.storymu.databinding.FragmentRegisterBinding
 import com.sekalisubmit.storymu.ui.viewmodel.RegisterViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -22,19 +26,8 @@ import retrofit2.HttpException
 class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-
     private val navController by lazy { findNavController() }
-
-    private val viewModel: RegisterViewModel by lazy { RegisterViewModel(requireActivity().application) }
-
-    data class Data(val email: String, val password: String, val token: String?)
-
-    data class ErrorResponse(
-        @field:SerializedName("error")
-        val error: Boolean? = null,
-        @field:SerializedName("message")
-        val message: String? = null
-    )
+    private lateinit var viewModel: RegisterViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +38,9 @@ class RegisterFragment : Fragment() {
         binding.tvLogin.setOnClickListener {
             navController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
         }
+
+        val pref = UserPreference.getInstance(requireContext().dataStore)
+        viewModel = RegisterViewModel(requireActivity().application, pref)
 
         setupListeners()
         validateInputFields()
@@ -63,6 +59,7 @@ class RegisterFragment : Fragment() {
 
         binding.btnSignUp.setOnClickListener {
             register()
+            binding.loadingHandler.visibility = View.VISIBLE
         }
     }
 
@@ -89,9 +86,9 @@ class RegisterFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.IO){
             try {
-                val response = viewModel.register(username, email, password)
+                val registerResponse = viewModel.register(username, email, password)
                 withContext(Dispatchers.Main) {
-                    handleRegisterResponse(response)
+                    handleRegisterResponse(registerResponse)
                 }
             } catch (e: HttpException) {
                 withContext(Dispatchers.Main) {
@@ -107,19 +104,74 @@ class RegisterFragment : Fragment() {
         val password = binding.edRegisterPassword.text.toString()
 
         if (response.error == false) {
-            showNotification("success", "register")
+            login(username, email, password)
         }
     }
 
     private fun handleRegisterError(e: HttpException) {
         val jsonInString = e.response()?.errorBody()?.string()
-        val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+        val errorBody = Gson().fromJson(jsonInString, LoginResponse::class.java)
 
         when (errorBody?.message){
             "\"email\" must be a valid email" -> showNotification("error", "invalidEmail")
             "Email is already taken" -> showNotification("error", "emailTaken")
         }
     }
+
+    private fun login(username: String, email: String, password: String) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val loginResponse = viewModel.login(email, password)
+                withContext(Dispatchers.Main) {
+                    binding.loadingHandler.visibility = View.GONE
+                    handleLoginResponse(loginResponse)
+                    // here I save user data to local database
+                    // lol idk why I save the password too
+                    val data = Login(email,username, loginResponse.loginResult?.token)
+                    viewModel.insertUserData(data)
+                }
+            } catch (e: HttpException) {
+                withContext(Dispatchers.Main) {
+                    binding.loadingHandler.visibility = View.GONE
+                    handleLoginError(e)
+                }
+            }
+        }
+    }
+
+    private fun handleLoginResponse(response: LoginResponse) {
+        // no need to check if response.error is true or false
+        // because this is handle for success login
+        val token = response.loginResult?.token
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.saveToken(token!!)
+        }
+        showNotification("success", "register")
+        lifecycleScope.launch {
+            // here I add delay to make sure token is saved and the notification is shown
+            delay(5000)
+            viewModel.getToken().observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    navigateToHomeFragment()
+                }
+            }
+        }
+    }
+
+    private fun handleLoginError(e: HttpException) {
+        val jsonInString = e.response()?.errorBody()?.string()
+        val errorBody = Gson().fromJson(jsonInString, LoginResponse::class.java)
+
+        when (errorBody?.message) {
+            "\"email\" must be a valid email" -> showNotification("error", "invalidEmail")
+            "Invalid password" -> showNotification("error", "invalidPassword")
+        }
+    }
+
+    private fun navigateToHomeFragment() {
+        navController.navigate(RegisterFragmentDirections.actionRegisterFragmentToHomeFragment())
+    }
+
 
     private fun showNotification(usage: String, type: String) {
         binding.notification.notificationSetter(usage, type)

@@ -17,14 +17,14 @@ abstract class RegisterRoomDatabase: RoomDatabase() {
 
         @JvmStatic
         fun getDatabase(context: Context): RegisterRoomDatabase {
-            if (RegisterRoomDatabase.INSTANCE == null) {
+            if (INSTANCE == null) {
                 synchronized(RegisterRoomDatabase::class.java) {
-                    RegisterRoomDatabase.INSTANCE = Room.databaseBuilder(context.applicationContext,
+                    INSTANCE = Room.databaseBuilder(context.applicationContext,
                         RegisterRoomDatabase::class.java, "login")
                         .build()
                 }
             }
-            return RegisterRoomDatabase.INSTANCE as RegisterRoomDatabase
+            return INSTANCE as RegisterRoomDatabase
         }
     }
 }

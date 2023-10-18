@@ -12,7 +12,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.sekalisubmit.storymu.R
 
-class EditText : AppCompatEditText, OnTouchListener{
+class CEditText : AppCompatEditText, OnTouchListener{
 
     private lateinit var clearButtonImage: Drawable
 

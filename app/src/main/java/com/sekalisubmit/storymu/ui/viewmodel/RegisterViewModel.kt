@@ -1,21 +1,19 @@
 package com.sekalisubmit.storymu.ui.viewmodel
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import com.sekalisubmit.storymu.data.local.UserPreference
 import com.sekalisubmit.storymu.data.local.room.login.Login
 import com.sekalisubmit.storymu.data.remote.response.LoginResponse
 import com.sekalisubmit.storymu.data.remote.response.RegisterResponse
 import com.sekalisubmit.storymu.data.remote.retrofit.ApiConfig
 import com.sekalisubmit.storymu.data.repository.LoginRepository
-import com.sekalisubmit.storymu.ui.fragment.RegisterFragment
 
-class RegisterViewModel (application: Application): ViewModel() {
-    companion object {
-        const val TAG = "RegisterViewModel"
-    }
-
-    private val cLoginRepository: LoginRepository by lazy { LoginRepository(application) }
+class RegisterViewModel (application: Application, private val pref: UserPreference): ViewModel() {
+    private val userRepository: LoginRepository by lazy { LoginRepository(application) }
 
     private val _register = MutableLiveData<RegisterResponse>()
     val register get() = _register
@@ -30,8 +28,15 @@ class RegisterViewModel (application: Application): ViewModel() {
         return apiService.login(email, password)
     }
 
-    fun saveToken(data: RegisterFragment.Data) {
-        val login = Login(data.email, data.password, data.token)
-        cLoginRepository.insert(login)
+    fun insertUserData(login: Login) {
+        userRepository.insert(login)
+    }
+
+    fun getToken(): LiveData<String> {
+        return pref.getToken().asLiveData()
+    }
+
+    suspend fun saveToken(token: String) {
+        pref.saveToken(token)
     }
 }

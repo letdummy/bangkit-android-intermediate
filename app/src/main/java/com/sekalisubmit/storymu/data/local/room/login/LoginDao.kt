@@ -2,7 +2,6 @@ package com.sekalisubmit.storymu.data.local.room.login
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -17,9 +16,10 @@ interface LoginDao {
     @Update
     fun update(login: Login)
 
-    @Delete
-    fun delete(login: Login)
+    @Query("DELETE FROM login")
+    fun delete()
 
-    @Query("SELECT * FROM login WHERE email = :email")
-    fun getUserToken(email: String): LiveData<Login>
+    @Query("SELECT * FROM login")
+    fun getUserData(): LiveData<Login>
+
 }

@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 
@@ -15,10 +16,10 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
 
     private val tokenKEY = stringPreferencesKey("token")
 
-    fun getToken(): String {
+    fun getToken(): Flow<String> {
         return dataStore.data.map { preferences ->
-            preferences[tokenKEY]
-        }.toString()
+            preferences[tokenKEY] ?: ""
+        }
     }
 
     suspend fun saveToken(token: String) {

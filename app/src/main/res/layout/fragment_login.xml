@@ -7,7 +7,7 @@
     tools:context=".ui.fragment.LoginFragment"
     android:background="@drawable/gradient">
 
-    <com.sekalisubmit.storymu.ui.customview.Notification
+    <com.sekalisubmit.storymu.ui.customview.CNotification
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/notification"
@@ -55,7 +55,7 @@
         android:textColor="?android:attr/colorButtonNormal"
         />
 
-    <com.sekalisubmit.storymu.ui.customview.EditText
+    <com.sekalisubmit.storymu.ui.customview.CEditText
         android:id="@+id/ed_login_email"
         android:layout_width="320dp"
         android:layout_height="48dp"
@@ -67,7 +67,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSubLogin"/>
 
-    <com.sekalisubmit.storymu.ui.customview.EditText
+    <com.sekalisubmit.storymu.ui.customview.CEditText
         android:id="@+id/ed_login_password"
         android:layout_width="320dp"
         android:layout_height="48dp"
@@ -79,7 +79,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_login_email"/>
 
-    <com.sekalisubmit.storymu.ui.customview.Button
+    <com.sekalisubmit.storymu.ui.customview.CButton
         android:id="@+id/btnLogin"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
@@ -89,5 +89,26 @@
         app:layout_constraintTop_toBottomOf="@+id/ed_login_password"
         android:fontFamily="@font/quicksand_bold"
         />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loadingHandler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#33FFFFFF"
+        android:elevation="10dp"
+        android:visibility="gone"
+        >
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/splash"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
