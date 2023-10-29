@@ -22,4 +22,7 @@ interface LoginDao {
     @Query("SELECT * FROM login")
     fun getUserData(): LiveData<Login>
 
+    @Query("SELECT token FROM login")
+    fun getDBToken(): String?
+
 }

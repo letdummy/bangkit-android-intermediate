@@ -1,6 +1,7 @@
 package com.sekalisubmit.storymu.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,10 +78,11 @@ class LoginFragment : Fragment() {
                 withContext(Dispatchers.Main) {
                     binding.loadingHandler.visibility = View.GONE
                     handleLoginResponse(response)
-                    // here I save user data to local database
-                    // lol idk why I save the password too
+                    // here I save user data to local database so that I can access it without pref
+                    // coz getting data from pref is asynchronous
                     val data = Login(email, response.loginResult?.name, response.loginResult?.token)
                     viewModel.insertUserData(data)
+                    Log.d("LoginFragment", "User: ${data.name}")
                 }
             } catch (e: HttpException) {
                 withContext(Dispatchers.Main) {

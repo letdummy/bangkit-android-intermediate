@@ -19,4 +19,51 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/bottom_nav"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/app_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:elevation="50dp"
+            android:backgroundTint="#1E1D3C"
+            app:fabAlignmentMode="center"
+            app:fabCradleMargin="15dp"
+            app:fabAnchorMode="cradle"
+            app:addElevationShadow="true"
+            app:fabAnimationMode="slide"
+            app:fabCradleVerticalOffset="0dp"
+            app:fabCradleRoundedCornerRadius="30dp">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/btn_nav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                app:labelVisibilityMode="unlabeled"
+                app:itemIconSize="30dp"
+                app:menu="@menu/main_menu"/>
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/float_maps"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:accessibilityTraversalBefore="@id/app_bar"
+            android:src="@drawable/storymu"
+            app:layout_anchor="@id/app_bar"
+            android:backgroundTint="#F5867A"
+            app:maxImageSize="45dp"
+            android:contentDescription="TODO" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

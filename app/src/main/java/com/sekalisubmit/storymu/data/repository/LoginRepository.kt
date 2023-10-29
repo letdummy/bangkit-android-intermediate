@@ -31,4 +31,5 @@ class LoginRepository(application: Application) {
     }
 
     fun getUserData(): LiveData<Login> = loginDao.getUserData()
+
 }

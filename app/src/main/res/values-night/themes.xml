@@ -1,7 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.StoryMu" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/dark_primary</item>
+        <item name="colorAccent">@color/dark_secondary</item>
+        <item name="colorButtonNormal">@color/accent</item>
+        <item name="android:colorEdgeEffect">@color/accentDark</item>
+        <item name="android:textColor">@color/dark_text</item>
+        <item name="colorControlNormal">@color/dark_text</item>
+        <item name="colorOnSurfaceVariant">#E4E5F1</item>
+        <item name="colorOnSecondaryContainer">@color/dark_primary</item>
     </style>
 </resources>

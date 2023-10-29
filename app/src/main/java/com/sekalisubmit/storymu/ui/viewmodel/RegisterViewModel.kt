@@ -19,12 +19,12 @@ class RegisterViewModel (application: Application, private val pref: UserPrefere
     val register get() = _register
 
     suspend fun register(username: String, email: String, password: String): RegisterResponse {
-        val apiService = ApiConfig.getApiService()
+        val apiService = ApiConfig.getApiService("")
         return apiService.register(username, email, password)
     }
 
     suspend fun login(email: String, password: String): LoginResponse {
-        val apiService = ApiConfig.getApiService()
+        val apiService = ApiConfig.getApiService("")
         return apiService.login(email, password)
     }
 

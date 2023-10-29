@@ -14,7 +14,7 @@ class LoginViewModel(application: Application, private val pref: UserPreference)
     private val loginRepository = LoginRepository(application)
 
     suspend fun login(email: String, password: String): LoginResponse {
-        val apiService = ApiConfig.getApiService()
+        val apiService = ApiConfig.getApiService("")
         return apiService.login(email, password)
     }
 
@@ -26,10 +26,7 @@ class LoginViewModel(application: Application, private val pref: UserPreference)
         pref.saveToken(token)
     }
 
-    // save user data to local database
     fun insertUserData(login: Login) {
         loginRepository.insert(login)
     }
-
-
 }

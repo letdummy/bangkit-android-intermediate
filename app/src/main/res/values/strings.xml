@@ -17,7 +17,6 @@
     <string name="logout">Logout</string>
 
 
-
     <!-- Notification Strings -->
     <string name="ne_emailTaken">Email already taken</string>
     <string name="ne_emailInvalid">Email is invalid</string>
@@ -31,6 +30,14 @@
     <string name="item_author">by Tokopedia</string>
     <string name="item_title">Cara membuka toko di tokopedia</string>
     <string name="item_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Menu Item -->
+    <string name="menu_feed">feed</string>
+    <string name="menu_add">add</string>
+    <string name="menu_setting">setting</string>
 
 
 </resources>
