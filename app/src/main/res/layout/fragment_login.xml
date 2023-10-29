@@ -88,6 +88,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_login_password"
         android:fontFamily="@font/quicksand_bold"
+        app:textEnable="SUBMIT"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout

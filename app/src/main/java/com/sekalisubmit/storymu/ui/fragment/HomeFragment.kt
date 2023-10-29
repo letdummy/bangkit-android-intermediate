@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sekalisubmit.storymu.data.local.UserPreference
@@ -14,7 +13,6 @@ import com.sekalisubmit.storymu.data.local.dataStore
 import com.sekalisubmit.storymu.databinding.FragmentHomeBinding
 import com.sekalisubmit.storymu.ui.adapter.StoryListAdapter
 import com.sekalisubmit.storymu.ui.viewmodel.HomeViewModel
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -55,33 +53,11 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.stories.observe(viewLifecycleOwner) { stories ->
-//            viewLifecycleOwner.lifecycleScope.launch {
-//                // finally, after adding delay, the rv bug is gone LOL
-//                // I assume glide needs time to load the images
-//                val adapter = binding.rvHome.adapter as StoryListAdapter
-//                adapter.submitList(stories)
-//                delay(2000)
-//                binding.loadingHandlerHome.visibility = View.GONE
-//                binding.rvHome.visibility = View.VISIBLE
-//            }
             val adapter = binding.rvHome.adapter as StoryListAdapter
             adapter.submitList(stories)
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun handleLogout(pref: UserPreference) {
-        viewModel.deleteUser()
-        binding.btnLogout.visibility = View.GONE
-        binding.userHandler.text = "Welcome, Guest"
-        binding.btnLogout.setOnClickListener {
-            lifecycleScope.launch {
-                pref.deleteToken()
-
-                binding.btnLogout.visibility = View.GONE
-            }
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -103,7 +103,7 @@ class LoginFragment : Fragment() {
         showNotification("success", "login")
         lifecycleScope.launch {
             // here I add delay to make sure token is saved and the notification is shown
-            delay(5000)
+            delay(3000)
             viewModel.getToken().observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
                     navigateToHomeFragment()

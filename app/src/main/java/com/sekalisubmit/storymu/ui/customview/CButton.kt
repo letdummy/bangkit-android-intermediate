@@ -1,5 +1,6 @@
 package com.sekalisubmit.storymu.ui.customview
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
@@ -16,12 +17,19 @@ class CButton : AppCompatButton {
 
     private var txtColor: Int = 0
 
+    private var textEnable: String? = null
+    private var textDisable: String? = null
+
+    constructor(context: Context) : super(context) {
+        init(null)
+    }
+
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init()
+        init(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init()
+        init(attrs)
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -34,11 +42,22 @@ class CButton : AppCompatButton {
 
         gravity = Gravity.CENTER
 
-        text = if(isEnabled) "Submit" else "Invalid Input"
-
+        text = when {
+            isEnabled -> textEnable ?: "SUBMIT"
+            else -> textDisable ?: "INVALID INPUT"
+        }
     }
 
-    private fun init() {
+    @SuppressLint("CustomViewStyleable")
+    private fun init(attrs: AttributeSet?) {
+
+        if (attrs != null) {
+            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomButton)
+            textEnable = typedArray.getString(R.styleable.CustomButton_textEnable)
+            textDisable = typedArray.getString(R.styleable.CustomButton_textDisable)
+            typedArray.recycle()
+        }
+
         txtColor = ContextCompat.getColor(context, android.R.color.background_light)
         enabledBackground = ContextCompat.getDrawable(context, R.drawable.bg_button) as Drawable
         disabledBackground = ContextCompat.getDrawable(context, R.drawable.bg_button_disable) as Drawable

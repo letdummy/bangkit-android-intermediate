@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.ProfileFragment"
+    android:background="@drawable/gradient">
+
+    <TextView
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:fontFamily="@font/quicksand_bold"
+        android:textSize="25sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        android:layout_marginTop="40dp"
+        />
+
+    <TextView
+        android:id="@+id/nameProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        android:fontFamily="@font/quicksand_bold"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/profile"
+        app:layout_constraintStart_toStartOf="@+id/profile"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/nameProfileText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jaka Sembung"
+        android:fontFamily="@font/quicksand_bold"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="@+id/nameProfile"
+        app:layout_constraintStart_toStartOf="@+id/nameProfile"
+        android:layout_marginStart="80dp"
+        />
+
+    <TextView
+        android:id="@+id/emailProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email:"
+        android:fontFamily="@font/quicksand_bold"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/nameProfile"
+        app:layout_constraintStart_toStartOf="@+id/profile"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/emailProfileText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bawagolok@cakep.com"
+        android:fontFamily="@font/quicksand_bold"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="@+id/emailProfile"
+        app:layout_constraintStart_toStartOf="@+id/nameProfileText"
+        />
+
+    <TextView
+        android:id="@+id/tokenProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Token:"
+        android:fontFamily="@font/quicksand_bold"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/emailProfile"
+        app:layout_constraintStart_toStartOf="@+id/profile"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tokenProfileText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1234567890"
+        android:fontFamily="@font/quicksand_bold"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="@+id/tokenProfile"
+        app:layout_constraintStart_toStartOf="@+id/nameProfileText"
+        />
+
+    <com.sekalisubmit.storymu.ui.customview.CButton
+        android:id="@+id/logoutProfile"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tokenProfile"
+        app:layout_constraintStart_toStartOf="@+id/tokenProfile"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/quicksand_bold"
+        app:textEnable="LOGOUT"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
