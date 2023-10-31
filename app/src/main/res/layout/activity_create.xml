@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="#1E1D3C"
         app:srcCompat="@drawable/ic_placeholder"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/story_image" />
 
     <com.sekalisubmit.storymu.ui.customview.CButton
         android:id="@+id/galleryButton"
@@ -47,7 +47,7 @@
         android:layout_marginTop="10dp"
         app:hintTextColor="?android:attr/colorControlNormal"
         android:textColorHint="?android:attr/colorControlNormal"
-        android:hint="Title">
+        android:hint="@string/story_title">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
         android:layout_marginTop="10dp"
         app:hintTextColor="?android:attr/colorControlNormal"
         android:textColorHint="?android:attr/colorControlNormal"
-        android:hint="Description">
+        android:hint="@string/story_description">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

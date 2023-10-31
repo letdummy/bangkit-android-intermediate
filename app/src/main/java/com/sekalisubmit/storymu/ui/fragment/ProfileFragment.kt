@@ -11,8 +11,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sekalisubmit.storymu.R
 import com.sekalisubmit.storymu.data.local.UserPreference
 import com.sekalisubmit.storymu.data.local.dataStore
+import com.sekalisubmit.storymu.data.local.room.FetchPreference
 import com.sekalisubmit.storymu.data.repository.LoginRepository
 import com.sekalisubmit.storymu.databinding.FragmentProfileBinding
+import com.sekalisubmit.storymu.ui.viewmodel.ProfileViewModel
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
@@ -25,6 +27,16 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val loginRepository = LoginRepository(requireActivity().application)
         val pref = UserPreference.getInstance(requireContext().dataStore)
+        val fetchPref = FetchPreference.getInstance(requireContext().dataStore)
+
+        val profileViewModel = ProfileViewModel(fetchPref)
+
+        profileViewModel.getFetch().observe(requireActivity()) { fetch ->
+            binding.switchProfile.isChecked = fetch
+        }
+        binding.switchProfile.setOnCheckedChangeListener { _, isChecked ->
+            profileViewModel.saveFetch(isChecked)
+        }
 
         loginRepository.getUserData().observe(viewLifecycleOwner) { user ->
             binding.nameProfileText.text = user.name

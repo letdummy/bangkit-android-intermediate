@@ -24,6 +24,9 @@ class HomeViewModel(application: Application, pref: UserPreference): ViewModel()
     private val storyRepository = StoryRepository(application)
     private val loginRepository = LoginRepository(application)
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
     private val _stories = MutableLiveData<List<Story?>>()
     val stories: LiveData<List<Story?>> = _stories
 
@@ -35,12 +38,6 @@ class HomeViewModel(application: Application, pref: UserPreference): ViewModel()
         return loginRepository.getUserData()
     }
 
-    fun deleteUser() {
-        viewModelScope.launch(Dispatchers.IO) {
-            loginRepository.delete()
-        }
-    }
-
     private fun loadTokenFromPref(pref: UserPreference) {
         viewModelScope.launch(Dispatchers.IO) {
             val tokenFromPref = pref.getToken()
@@ -50,6 +47,7 @@ class HomeViewModel(application: Application, pref: UserPreference): ViewModel()
         }
     }
     fun fetchStories(token: String) {
+        _isLoading.postValue(true)
         val apiService = ApiConfig.getApiService(token)
         viewModelScope.launch(Dispatchers.IO) {
             val response = apiService.getStories()
@@ -67,6 +65,7 @@ class HomeViewModel(application: Application, pref: UserPreference): ViewModel()
                     )
                 }
                 // insert to database
+                _isLoading.postValue(false)
                 storyRepository.insert(listStory)
                 _stories.postValue(listStory)
             } else {
@@ -74,5 +73,4 @@ class HomeViewModel(application: Application, pref: UserPreference): ViewModel()
             }
         }
     }
-
 }

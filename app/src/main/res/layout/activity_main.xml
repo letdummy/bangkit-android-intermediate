@@ -63,7 +63,7 @@
             app:layout_anchor="@id/app_bar"
             android:backgroundTint="#F5867A"
             app:maxImageSize="45dp"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/add_new_story" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                     if (currentDestination == R.id.homeFragment) {
                         // I implemented this to make sure that the feed fragment is refreshed when user click on the feed menu
                         // I don't know if this is the best way to do it
+
                         navController.navigate(HomeFragmentDirections.actionHomeFragmentSelf())
                     } else if (currentDestination == R.id.profileFragment) {
                         navController.navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())

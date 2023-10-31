@@ -1,7 +1,10 @@
 package com.sekalisubmit.storymu.ui.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +13,19 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sekalisubmit.storymu.data.local.UserPreference
 import com.sekalisubmit.storymu.data.local.dataStore
+import com.sekalisubmit.storymu.data.local.room.FetchPreference
 import com.sekalisubmit.storymu.databinding.FragmentHomeBinding
 import com.sekalisubmit.storymu.ui.adapter.StoryListAdapter
 import com.sekalisubmit.storymu.ui.viewmodel.HomeViewModel
+import com.sekalisubmit.storymu.ui.viewmodel.ProfileViewModel
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
 
-    @SuppressLint("SetTextI18n")
+    private var alwaysOnline: Boolean = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,8 +34,18 @@ class HomeFragment : Fragment() {
         val pref = UserPreference.getInstance(requireContext().dataStore)
         viewModel = HomeViewModel(requireActivity().application, pref)
 
+        val fetchPref = FetchPreference.getInstance(requireContext().dataStore)
+        val profileViewModel = ProfileViewModel(fetchPref)
+        profileViewModel.getFetch().observe(requireActivity()) { fetch ->
+            alwaysOnline = fetch
+            Log.d("HomeFragment", "onCreateView: $alwaysOnline")
+            Log.d("HomeFragment", "onCreateView: $fetch")
+        }
+
         setupRecyclerView()
-        observeViewModel()
+        observeUserData()
+        fetchStory()
+        loadingHandler()
 
         return binding.root
     }
@@ -38,29 +54,75 @@ class HomeFragment : Fragment() {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvHome.layoutManager = layoutManager
         binding.rvHome.addItemDecoration(DividerItemDecoration(requireContext(), layoutManager.orientation))
-        binding.rvHome.adapter = StoryListAdapter()
+        val adapter = StoryListAdapter()
+        binding.rvHome.adapter = adapter
     }
 
     @SuppressLint("SetTextI18n")
-    private fun observeViewModel() {
+    private fun observeUserData() {
         viewModel.token.observe(viewLifecycleOwner) { token ->
-            token?.takeIf { it.isNotBlank() }?.let { nonEmptyToken ->
-                viewModel.fetchStories(nonEmptyToken)
+            token?.takeIf { it.isNotBlank() }?.let {
                 viewModel.getUser().observe(viewLifecycleOwner) { user ->
                     binding.userHandler.text = "Welcome, ${user.name}"
                 }
             }
         }
+    }
 
-        viewModel.stories.observe(viewLifecycleOwner) { stories ->
-            val adapter = binding.rvHome.adapter as StoryListAdapter
-            adapter.submitList(stories)
+    private fun fetchStory() {
+        Log.d("HomeFragment", "fetchStory: $alwaysOnline")
+        if (isInternetConnected()) {
+            Log.d("HomeFragment", "fetchStory ketika ada internet")
+            viewModel.token.observe(viewLifecycleOwner) { token ->
+                token?.takeIf { it.isNotBlank() }?.let { nonEmptyToken ->
+                    viewModel.fetchStories(nonEmptyToken)
+                    loadStories()
+                }
+            }
+        } else {
+            Log.d("HomeFragment", "fetchStory ketika tidak ada internet")
+            handleNoInternetConnection()
         }
     }
 
+    private fun handleNoInternetConnection() {
+        if (alwaysOnline) {
+            Log.d("HomeFragment", "handleNoInternetConnection ketika true")
+            binding.rvHome.visibility = View.GONE
+            binding.loadingHandler.visibility = View.GONE
+            binding.failHandler.visibility = View.VISIBLE
+        } else {
+            Log.d("HomeFragment", "handleNoInternetConnection ketika false")
+            binding.failHandler.visibility = View.GONE
+            binding.loadingHandler.visibility = View.GONE
+            binding.rvHome.visibility = View.VISIBLE
+            loadStories()
+        }
+    }
 
+    private fun loadStories() {
+        viewModel.stories.observe(viewLifecycleOwner) { stories ->
+            val adapter = binding.rvHome.adapter as StoryListAdapter
+            adapter.submitList(stories)
+            binding.rvHome.visibility = if (stories.isNotEmpty()) View.VISIBLE else View.GONE
+            binding.failHandler.visibility = if (stories.isEmpty()) View.VISIBLE else View.GONE
+        }
+    }
+
+    private fun isInternetConnected(): Boolean {
+        val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetwork
+        return activeNetwork != null
+    }
+
+    private fun loadingHandler() {
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.loadingHandler.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
+

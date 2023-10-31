@@ -1,5 +1,7 @@
 package com.sekalisubmit.storymu.ui.fragment
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -52,7 +54,12 @@ class LoginFragment : Fragment() {
 
         binding.btnLogin.setOnClickListener {
             binding.loadingHandler.visibility = View.VISIBLE
-            login()
+            if (isInternetConnected()) {
+                login()
+            } else {
+                showNotification("error", "noInternet")
+                binding.loadingHandler.visibility = View.GONE
+            }
         }
     }
 
@@ -133,6 +140,12 @@ class LoginFragment : Fragment() {
         // check ui/customview/Notification.kt
         binding.notification.notificationSetter(usage, type)
         binding.notification.visibility = View.VISIBLE
+    }
+
+    private fun isInternetConnected(): Boolean {
+        val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetwork
+        return activeNetwork != null
     }
 
     override fun onDestroyView() {

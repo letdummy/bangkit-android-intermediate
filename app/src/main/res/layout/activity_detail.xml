@@ -17,14 +17,14 @@
         android:scaleType="centerCrop"
         android:src="@drawable/image_programmer"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="User Uploaded Image" />
+        android:contentDescription="@string/detail_image" />
 
     <Button
         android:id="@+id/btnDetail"
         android:transitionName="btnDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="see original"
+        android:text="@string/detail_original"
         android:background="@drawable/bg_button"
         android:fontFamily="@font/quicksand_bold"
         app:layout_constraintBottom_toBottomOf="@+id/imgDetail"
@@ -38,7 +38,7 @@
         android:transitionName="titleDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cara Membuka Toko di Tokopedia"
+        android:text="@string/item_title"
         android:fontFamily="@font/quicksand_bold"
         android:textSize="30sp"
         app:layout_constraintTop_toBottomOf="@+id/imgDetail"
@@ -51,7 +51,7 @@
         android:transitionName="authorDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="by: @username"
+        android:text="@string/item_author"
         android:fontFamily="@font/quicksand_bold"
         android:textSize="17sp"
         android:layout_marginVertical="10dp"
@@ -64,7 +64,7 @@
         android:transitionName="contentDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl."
+        android:text="@string/item_description"
         android:fontFamily="@font/quicksand_medium"
         android:textSize="17sp"
         app:layout_constraintTop_toBottomOf="@+id/authorDetail"

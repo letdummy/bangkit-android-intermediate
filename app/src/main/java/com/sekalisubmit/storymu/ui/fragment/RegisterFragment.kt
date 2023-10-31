@@ -1,5 +1,7 @@
 package com.sekalisubmit.storymu.ui.fragment
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -58,8 +60,12 @@ class RegisterFragment : Fragment() {
         binding.edRegisterPassword.addTextChangedListener { validateInputFields() }
 
         binding.btnSignUp.setOnClickListener {
-            register()
             binding.loadingHandler.visibility = View.VISIBLE
+            if (isInternetConnected()) {
+                register()
+            } else {
+                showNotification("error", "noInternet")
+            }
         }
     }
 
@@ -176,6 +182,12 @@ class RegisterFragment : Fragment() {
     private fun showNotification(usage: String, type: String) {
         binding.notification.notificationSetter(usage, type)
         binding.notification.visibility = View.VISIBLE
+    }
+
+    private fun isInternetConnected(): Boolean {
+        val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetwork
+        return activeNetwork != null
     }
 
     override fun onDestroyView() {

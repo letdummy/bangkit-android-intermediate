@@ -11,7 +11,7 @@
         android:id="@+id/profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile"
+        android:text="@string/profile"
         android:fontFamily="@font/quicksand_bold"
         android:textSize="25sp"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +25,7 @@
         android:id="@+id/nameProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name:"
+        android:text="@string/name"
         android:fontFamily="@font/quicksand_bold"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/profile"
@@ -37,8 +37,7 @@
         android:id="@+id/nameProfileText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jaka Sembung"
-        android:fontFamily="@font/quicksand_bold"
+        android:fontFamily="@font/quicksand_regular"
         android:textSize="20sp"
         app:layout_constraintTop_toTopOf="@+id/nameProfile"
         app:layout_constraintStart_toStartOf="@+id/nameProfile"
@@ -49,7 +48,7 @@
         android:id="@+id/emailProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email:"
+        android:text="@string/email"
         android:fontFamily="@font/quicksand_bold"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/nameProfile"
@@ -61,8 +60,7 @@
         android:id="@+id/emailProfileText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="bawagolok@cakep.com"
-        android:fontFamily="@font/quicksand_bold"
+        android:fontFamily="@font/quicksand_regular"
         android:textSize="20sp"
         app:layout_constraintTop_toTopOf="@+id/emailProfile"
         app:layout_constraintStart_toStartOf="@+id/nameProfileText"
@@ -72,7 +70,7 @@
         android:id="@+id/tokenProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Token:"
+        android:text="@string/token"
         android:fontFamily="@font/quicksand_bold"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/emailProfile"
@@ -84,23 +82,55 @@
         android:id="@+id/tokenProfileText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1234567890"
-        android:fontFamily="@font/quicksand_bold"
+        android:fontFamily="@font/quicksand_regular"
         android:textSize="20sp"
         app:layout_constraintTop_toTopOf="@+id/tokenProfile"
         app:layout_constraintStart_toStartOf="@+id/nameProfileText"
         />
 
+    <TextView
+        android:id="@+id/fetchProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fetch_internet"
+        android:fontFamily="@font/quicksand_bold"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/tokenProfile"
+        app:layout_constraintStart_toStartOf="@+id/profile"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/fetchProfileDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fetch_internet_desc"
+        android:fontFamily="@font/quicksand_regular"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/fetchProfile"
+        app:layout_constraintStart_toStartOf="@+id/profile"
+        />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switchProfile"
+        app:layout_constraintTop_toTopOf="@+id/fetchProfile"
+        app:layout_constraintStart_toEndOf="@+id/fetchProfile"
+        android:layout_marginStart="100dp"
+        android:checked="true"
+        app:thumbTint="@color/accent"
+        />
+
     <com.sekalisubmit.storymu.ui.customview.CButton
         android:id="@+id/logoutProfile"
-        android:layout_width="152dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tokenProfile"
-        app:layout_constraintStart_toStartOf="@+id/tokenProfile"
+        app:layout_constraintTop_toBottomOf="@+id/fetchProfileDesc"
+        app:layout_constraintStart_toStartOf="@+id/profile"
         android:layout_marginTop="100dp"
         android:fontFamily="@font/quicksand_bold"
         app:textEnable="LOGOUT"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
