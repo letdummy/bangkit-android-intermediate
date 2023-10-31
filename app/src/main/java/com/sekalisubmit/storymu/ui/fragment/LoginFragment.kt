@@ -97,13 +97,11 @@ class LoginFragment : Fragment() {
         // no need to check if response.error is true or false
         // because this is handle for success login
         val token = response.loginResult?.token
-        lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.saveToken(token!!)
-        }
         showNotification("success", "login")
         lifecycleScope.launch {
             // here I add delay to make sure token is saved and the notification is shown
             delay(3000)
+            viewModel.saveToken(token!!)
             viewModel.getToken().observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
                     navigateToHomeFragment()

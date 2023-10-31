@@ -14,6 +14,7 @@ import com.sekalisubmit.storymu.data.local.UserPreference
 import com.sekalisubmit.storymu.data.local.dataStore
 import com.sekalisubmit.storymu.databinding.ActivityMainBinding
 import com.sekalisubmit.storymu.ui.fragment.HomeFragmentDirections
+import com.sekalisubmit.storymu.ui.fragment.ProfileFragmentDirections
 import com.sekalisubmit.storymu.ui.viewmodel.LoginViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -72,12 +73,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bottomNavController(){
-//        val btn: BottomNavigationView = findViewById(R.id.btn_nav)
-//        btn.menu.getItem(1).isEnabled = false
         binding.btnNav.setOnItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.menu_feed -> {
-                    navController.navigate(HomeFragmentDirections.actionHomeFragmentSelf())
+                    val currentDestination = navController.currentDestination?.id
+                    if (currentDestination == R.id.homeFragment) {
+                        // I implemented this to make sure that the feed fragment is refreshed when user click on the feed menu
+                        // I don't know if this is the best way to do it
+                        navController.navigate(HomeFragmentDirections.actionHomeFragmentSelf())
+                    } else if (currentDestination == R.id.profileFragment) {
+                        navController.navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
+                    }
                     true
                 }
                 R.id.dummy -> {
@@ -99,5 +105,4 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }
-
 }

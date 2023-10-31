@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sekalisubmit.storymu.R
 import com.sekalisubmit.storymu.data.local.UserPreference
 import com.sekalisubmit.storymu.data.local.dataStore
@@ -38,11 +39,15 @@ class ProfileFragment : Fragment() {
                 pref.deleteToken()
             }
             findNavController().navigate(R.id.action_profileFragment_to_homeFragment)
+
+            val bottomNavigationView: BottomNavigationView = requireActivity().findViewById(R.id.btn_nav)
+            bottomNavigationView.selectedItemId = R.id.menu_feed
+
             val bottomNav = requireActivity().findViewById<View>(R.id.bottom_nav)
             bottomNav.visibility = View.GONE
         }
 
+
         return binding.root
     }
-
 }
