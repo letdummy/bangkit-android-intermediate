@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:elevation="50dp"
-            android:backgroundTint="#1E1D3C"
+            android:backgroundTint="@color/dark_tertiary"
             app:fabAlignmentMode="center"
             app:fabCradleMargin="15dp"
             app:fabAnchorMode="cradle"
@@ -61,7 +61,7 @@
             android:accessibilityTraversalBefore="@id/app_bar"
             android:src="@drawable/storymu"
             app:layout_anchor="@id/app_bar"
-            android:backgroundTint="#F5867A"
+            android:backgroundTint="@color/orange"
             app:maxImageSize="45dp"
             android:contentDescription="@string/add_new_story" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

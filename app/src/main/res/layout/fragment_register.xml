@@ -110,7 +110,7 @@
         android:id="@+id/loadingHandler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#33FFFFFF"
+        android:background="@color/transparent_white"
         android:elevation="10dp"
         android:visibility="gone"
         >

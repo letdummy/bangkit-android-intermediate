@@ -37,26 +37,26 @@ class DetailActivity : AppCompatActivity() {
             .load(story.photoUrl)
             .apply(requestOptions)
             .centerCrop()
-            .into(binding.imgDetail)
+            .into(binding.ivDetailPhoto)
 
         val text = story.description?.split("\\s+".toRegex())
 
         if ((text?.size ?: 0) > 3) {
             binding.titleDetail.text = text?.subList(0, 3)?.joinToString(" ") ?: ""
-            binding.contentDetail.text = text?.subList(3, text.size)?.joinToString(" ") ?: ""
+            binding.tvDetailDescription.text = text?.subList(3, text.size)?.joinToString(" ") ?: ""
         } else {
             story.description?.length?.let {
                 if (it > 25) {
                     binding.titleDetail.text = "${story.description?.substring(0, 25)}"
-                    binding.contentDetail.text = "${story.description?.substring(25, it)}"
+                    binding.tvDetailDescription.text = "${story.description?.substring(25, it)}"
                 } else {
                     binding.titleDetail.text = story.description
-                    binding.contentDetail.text = ""
+                    binding.tvDetailDescription.text = ""
                 }
             }
         }
 
-        binding.authorDetail.text = "by ${story.name}"
+        binding.tvDetailName.text = "by ${story.name}"
     }
 
     private fun oriImage(story: Story) {

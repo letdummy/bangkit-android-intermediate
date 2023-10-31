@@ -40,7 +40,7 @@
     <string name="menu_setting">setting</string>
     <string name="take_picture">Take Picture</string>
     <string name="switch_camera">Switch Camera</string>
-    <string name="story_image">Selected Image to Upload</string>
+    <string name="story_image">Image to Upload</string>
     <string name="add_new_story">Add new Story</string>
     <string name="story_title">Title for Your Story</string>
     <string name="story_description">Description for Your Story</string>

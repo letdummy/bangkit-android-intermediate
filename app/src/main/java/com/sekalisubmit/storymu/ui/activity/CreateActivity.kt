@@ -48,7 +48,7 @@ class CreateActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setup()
-        binding.submitButton.isEnabled = false
+        binding.buttonAdd.isEnabled = false
     }
 
     private fun setup() {
@@ -59,7 +59,7 @@ class CreateActivity : AppCompatActivity() {
 
             galleryButton.setOnClickListener { startGallery() }
             cameraXButton.setOnClickListener { startCameraX() }
-            submitButton.setOnClickListener {
+            buttonAdd.setOnClickListener {
                 if (isInternetConnected()) {
                     handleSubmission()
                 } else {
@@ -68,7 +68,7 @@ class CreateActivity : AppCompatActivity() {
             }
 
             titleStory.editText?.doOnTextChanged { text, _, _, _ -> validateTextCount(text, titleStory) }
-            descStory.editText?.doOnTextChanged { text, _, _, _ -> validateTextCount(text, descStory) }
+            edAddDescription.editText?.doOnTextChanged { text, _, _, _ -> validateTextCount(text, edAddDescription) }
 
             // documentation:
             // https://github.com/material-components/material-components-android/blob/master/docs/components/TextField.md
@@ -79,16 +79,16 @@ class CreateActivity : AppCompatActivity() {
         val wordCount = text?.trim()?.split(" ")?.size ?: 0
         if (wordCount < 3) {
             textInputLayout.error = "${textInputLayout.hint} must be at least 3 words"
-            binding.submitButton.isEnabled = false
+            binding.buttonAdd.isEnabled = false
         } else {
             textInputLayout.error = null
-            binding.submitButton.isEnabled = true
+            binding.buttonAdd.isEnabled = true
         }
     }
 
     private fun handleSubmission() {
         binding.loadingHandler.visibility = View.VISIBLE
-        val combinedText = "${binding.titleStory.editText?.text} ${binding.descStory.editText?.text}"
+        val combinedText = "${binding.titleStory.editText?.text} ${binding.edAddDescription.editText?.text}"
         val file = currentImageUri?.let { uriToFile(it, this).reduceFileImage() }
         val requestFile = file?.asRequestBody("image/jpeg".toMediaType())
 
@@ -115,14 +115,16 @@ class CreateActivity : AppCompatActivity() {
                 }
 
                 delay(3000)
-                val intent = Intent(this@CreateActivity, MainActivity::class.java)
-                startActivity(intent)
+                // lol instead of making intent to go back to main activity, I just finish this activity
+                finish()
             }
         } else {
             Toast.makeText(this, "Please upload an image", Toast.LENGTH_SHORT).show()
         }
     }
 
+
+    // File handler (literally from dicoding)
     private fun uriToFile(imageUri: Uri, context: Context): File {
         val myFile = createCustomTempFile(context)
         val inputStream = context.contentResolver.openInputStream(imageUri) as InputStream

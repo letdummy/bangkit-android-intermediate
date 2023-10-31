@@ -19,7 +19,7 @@
         >
 
         <ImageView
-            android:id="@+id/item_image"
+            android:id="@+id/iv_item_photo"
             android:layout_width="match_parent"
             android:layout_height="130dp"
             card_view:layout_constraintTop_toTopOf="parent"
@@ -37,9 +37,9 @@
             android:fontFamily="@font/quicksand_bold"
             android:text="@string/item_title"
             android:textSize="23sp"
-            card_view:layout_constraintTop_toBottomOf="@+id/item_image"
+            card_view:layout_constraintTop_toBottomOf="@+id/iv_item_photo"
             android:textColor="@color/light_text"
-            card_view:layout_constraintStart_toStartOf="@+id/item_image"
+            card_view:layout_constraintStart_toStartOf="@+id/iv_item_photo"
             android:layout_marginTop="10dp"
             />
 
@@ -52,12 +52,12 @@
             android:textSize="15sp"
             android:textColor="@color/light_text"
             card_view:layout_constraintTop_toBottomOf="@+id/item_title"
-            card_view:layout_constraintStart_toStartOf="@+id/item_image"
+            card_view:layout_constraintStart_toStartOf="@+id/iv_item_photo"
             android:layout_marginTop="10dp"
             />
 
         <TextView
-            android:id="@+id/item_author"
+            android:id="@+id/tv_item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/item_author"
@@ -65,7 +65,7 @@
             android:textSize="15sp"
             android:textColor="@color/light_text"
             card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintStart_toStartOf="@+id/item_image"
+            card_view:layout_constraintStart_toStartOf="@+id/iv_item_photo"
             android:layout_marginTop="10dp"
             />
 

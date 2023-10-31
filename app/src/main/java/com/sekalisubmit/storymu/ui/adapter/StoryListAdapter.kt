@@ -31,10 +31,10 @@ class StoryListAdapter : ListAdapter<Story, StoryListAdapter.ViewHolder>(DiffCal
         }
     }
     class ViewHolder(itemLayout: View): RecyclerView.ViewHolder(itemLayout) {
-        private var image: ImageView = itemLayout.findViewById(R.id.item_image)
+        private var image: ImageView = itemLayout.findViewById(R.id.iv_item_photo)
         private var title: TextView = itemLayout.findViewById(R.id.item_title)
         private var description: TextView = itemLayout.findViewById(R.id.item_description)
-        private var author: TextView = itemLayout.findViewById(R.id.item_author)
+        private var author: TextView = itemLayout.findViewById(R.id.tv_item_name)
 
         @SuppressLint("SetTextI18n")
         fun init(story: Story) {

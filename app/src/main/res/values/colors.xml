@@ -13,6 +13,11 @@
 
     <color name="success">#5CB85C</color>
     <color name="error">#D55151</color>
+    <color name="disabled">#41485A</color>
+    <color name="gradient_primary">#1B192D</color>
+    <color name="orange">#F5867A</color>
+    <color name="dark_tertiary">#1E1D3C</color>
+    <color name="transparent_white">#66FFFFFF</color>
 
 
 </resources>
