@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -58,7 +59,13 @@ class CreateActivity : AppCompatActivity() {
 
             galleryButton.setOnClickListener { startGallery() }
             cameraXButton.setOnClickListener { startCameraX() }
-            submitButton.setOnClickListener { handleSubmission() }
+            submitButton.setOnClickListener {
+                if (isInternetConnected()) {
+                    handleSubmission()
+                } else {
+                    Toast.makeText(this@CreateActivity, "Internet Needed to Post Story", Toast.LENGTH_SHORT).show()
+                }
+            }
 
             titleStory.editText?.doOnTextChanged { text, _, _, _ -> validateTextCount(text, titleStory) }
             descStory.editText?.doOnTextChanged { text, _, _, _ -> validateTextCount(text, descStory) }
@@ -177,6 +184,12 @@ class CreateActivity : AppCompatActivity() {
                 Toast.makeText(this, "Permission request denied", Toast.LENGTH_LONG).show()
             }
         }
+
+    private fun isInternetConnected(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetwork
+        return activeNetwork != null
+    }
 
     private fun allPermissionsGranted() =
         ContextCompat.checkSelfPermission(

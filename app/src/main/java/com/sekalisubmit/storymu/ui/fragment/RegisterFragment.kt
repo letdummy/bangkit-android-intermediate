@@ -65,6 +65,7 @@ class RegisterFragment : Fragment() {
                 register()
             } else {
                 showNotification("error", "noInternet")
+                binding.loadingHandler.visibility = View.GONE
             }
         }
     }

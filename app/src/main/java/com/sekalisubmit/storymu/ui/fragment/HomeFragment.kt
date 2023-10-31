@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
 
-    private var alwaysOnline: Boolean = true
+    private var alwaysOnline: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,7 +76,12 @@ class HomeFragment : Fragment() {
             viewModel.token.observe(viewLifecycleOwner) { token ->
                 token?.takeIf { it.isNotBlank() }?.let { nonEmptyToken ->
                     viewModel.fetchStories(nonEmptyToken)
-                    loadStories()
+                    viewModel.stories.observe(viewLifecycleOwner) { stories ->
+                        val adapter = binding.rvHome.adapter as StoryListAdapter
+                        adapter.submitList(stories)
+                        binding.rvHome.visibility = if (stories.isNotEmpty()) View.VISIBLE else View.GONE
+                        binding.failHandler.visibility = if (stories.isEmpty()) View.VISIBLE else View.GONE
+                    }
                 }
             }
         } else {
@@ -101,11 +106,20 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadStories() {
-        viewModel.stories.observe(viewLifecycleOwner) { stories ->
-            val adapter = binding.rvHome.adapter as StoryListAdapter
-            adapter.submitList(stories)
-            binding.rvHome.visibility = if (stories.isNotEmpty()) View.VISIBLE else View.GONE
-            binding.failHandler.visibility = if (stories.isEmpty()) View.VISIBLE else View.GONE
+        if (alwaysOnline) {
+            viewModel.stories.observe(viewLifecycleOwner) { stories ->
+                val adapter = binding.rvHome.adapter as StoryListAdapter
+                adapter.submitList(stories)
+                binding.rvHome.visibility = if (stories.isNotEmpty()) View.VISIBLE else View.GONE
+                binding.failHandler.visibility = if (stories.isEmpty()) View.VISIBLE else View.GONE
+            }
+        } else {
+            viewModel.getStoryDB().observe(viewLifecycleOwner) { stories ->
+                val adapter = binding.rvHome.adapter as StoryListAdapter
+                adapter.submitList(stories)
+                binding.rvHome.visibility = if (stories.isNotEmpty()) View.VISIBLE else View.GONE
+                binding.failHandler.visibility = if (stories.isEmpty()) View.VISIBLE else View.GONE
+            }
         }
     }
 

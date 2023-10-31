@@ -5,8 +5,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
-import com.sekalisubmit.storymu.data.local.room.login.Login
 
 @Dao
 interface StoryDao {
@@ -16,6 +14,6 @@ interface StoryDao {
     @Query("DELETE FROM story")
     fun delete()
 
-    @Query("SELECT * FROM story")
+    @Query("SELECT * FROM story ORDER BY createdAt DESC")
     fun getStoryData(): LiveData<List<Story>>
 }
