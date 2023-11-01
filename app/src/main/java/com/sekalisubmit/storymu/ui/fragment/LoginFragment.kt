@@ -1,5 +1,7 @@
 package com.sekalisubmit.storymu.ui.fragment
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -7,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -138,9 +142,30 @@ class LoginFragment : Fragment() {
     }
 
     private fun showNotification(usage: String, type: String) {
-        // full list of usage and type
-        // check ui/customview/Notification.kt
         binding.notification.notificationSetter(usage, type)
+
+        // will move as far as the width of the notification view
+        binding.notification.measure(
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        )
+        val width = binding.notification.measuredWidth.toFloat()
+
+        val showAnimation = ObjectAnimator.ofFloat(binding.notification, "translationX", -width, 0f)
+        showAnimation.duration = 700
+        showAnimation.interpolator = DecelerateInterpolator()
+
+        val delayAnimation = ObjectAnimator.ofFloat(binding.notification, "translationX", 0f, 0f)
+        delayAnimation.duration = 1800
+
+        val hideAnimation = ObjectAnimator.ofFloat(binding.notification, "translationX", 0f, -width)
+        hideAnimation.duration = 500
+        hideAnimation.interpolator = AccelerateInterpolator()
+
+        val animatorSet = AnimatorSet()
+        animatorSet.playSequentially(showAnimation, delayAnimation, hideAnimation)
+        animatorSet.start()
+
         binding.notification.visibility = View.VISIBLE
     }
 

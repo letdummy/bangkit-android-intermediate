@@ -52,7 +52,6 @@ class HomeFragment : Fragment() {
 
         setupRecyclerView()
         observeUserData()
-        fetchStory()
         loadingHandler()
 
         return binding.root
@@ -82,7 +81,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun fetchStory() {
+    fun fetchStory() {
         if (isInternetConnected()) {
             viewModel.token.observe(viewLifecycleOwner) { token ->
                 token?.takeIf { it.isNotBlank() }?.let { nonEmptyToken ->
@@ -145,5 +144,9 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-}
 
+    override fun onResume() {
+        super.onResume()
+        fetchStory()
+    }
+}

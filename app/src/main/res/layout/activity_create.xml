@@ -85,7 +85,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imgStory"
         android:layout_marginBottom="40dp"
-        app:textEnable="SUBMIT"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
