@@ -124,6 +124,8 @@ class LoginFragment : Fragment() {
         when (errorBody?.message) {
             "\"email\" must be a valid email" -> showNotification("error", "invalidEmail")
             "Invalid password" -> showNotification("error", "invalidPassword")
+            "User not found" -> showNotification("error", "userNotFound")
+            else -> showNotification("error", "unknown")
         }
     }
 

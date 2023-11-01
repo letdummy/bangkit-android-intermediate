@@ -16,8 +16,6 @@ class CEditText : AppCompatEditText, OnTouchListener{
 
     private lateinit var clearButtonImage: Drawable
 
-    private val minLength = 8
-
     private var useFor: String? = null
 
     constructor(context: Context) : super(context) {
@@ -65,15 +63,16 @@ class CEditText : AppCompatEditText, OnTouchListener{
 
         error = when (useFor) {
             "email" -> {
-                if (android.util.Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) null else "Invalid email"
+                if (android.util.Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) null // change the lines to make them neat
+                    else context.getString(R.string.err_email)
             }
 
             "password" -> {
-                if (s.toString().length >= minLength) null else "Password must be at least $minLength characters"
+                if (s.toString().length >= 8) null else context.getString(R.string.err_password)
             }
 
             "username" -> {
-                if (s.toString().length >= minLength) null else "Username must be at least $minLength characters"
+                if (s.toString().length >= 8) null else context.getString(R.string.err_username)
             }
 
             else -> {

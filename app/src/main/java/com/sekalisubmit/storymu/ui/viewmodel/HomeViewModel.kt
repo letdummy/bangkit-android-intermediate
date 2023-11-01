@@ -36,8 +36,8 @@ class HomeViewModel(application: Application, pref: UserPreference): ViewModel()
 
     fun getStoryDB() = storyRepository.getStories()
 
-    fun getUser(): LiveData<Login> {
-        return loginRepository.getUserData()
+    fun getUser(token: String): LiveData<Login> {
+        return loginRepository.getUserData(token)
     }
 
     private fun loadTokenFromPref(pref: UserPreference) {

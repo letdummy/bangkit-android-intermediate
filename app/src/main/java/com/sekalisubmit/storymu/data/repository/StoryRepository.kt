@@ -25,9 +25,4 @@ class StoryRepository(application: Application) {
 
     fun getStories() = storyDao.getStoryData()
 
-    fun delete() {
-        executorService.execute {
-            storyDao.delete()
-        }
-    }
 }

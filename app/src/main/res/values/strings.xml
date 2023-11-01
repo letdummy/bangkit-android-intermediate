@@ -1,8 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">StoryMu</string>
 
-    <string name="app_logo">Logo StoryMu</string>
-    <string name="header">Welcome to Storymu</string>
+    <string name="app_logo">StoryMu Logo</string>
+    <string name="header">Welcome to StoryMu</string>
+    <string name="welcome">Welcome, </string>
 
     <string name="header_1">Publish\nYour Wonderful\nStory</string>
     <string name="header_2">Share\nYour Code\nJourney</string>
@@ -16,44 +18,52 @@
     <string name="username">Username</string>
     <string name="logout">Logout</string>
 
-
     <!-- Notification Strings -->
     <string name="ne_emailTaken">Email already taken</string>
     <string name="ne_emailInvalid">Email is invalid</string>
     <string name="ne_passwordInvalid">Password is invalid</string>
-
+    <string name="ne_userNotFound">User not found</string>
+    <string name="ne_unknown">Unknown error</string>
     <string name="ns_login">Logged in successfully</string>
     <string name="ns_register">Signed up successfully</string>
 
     <!-- Item Layout Strings -->
     <string name="item_image">Uploaded image by user</string>
     <string name="item_author">by Tokopedia</string>
-    <string name="item_title">Cara membuka toko di tokopedia</string>
-    <string name="item_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="item_title">How to Open a Store on Tokopedia</string>
+    <string name="item_description">Lorem ipsum dolor sit amet.</string>
 
     <!-- Menu Item -->
-    <string name="menu_feed">feed</string>
-    <string name="menu_add">add</string>
-    <string name="menu_setting">setting</string>
     <string name="take_picture">Take Picture</string>
     <string name="switch_camera">Switch Camera</string>
     <string name="story_image">Image to Upload</string>
     <string name="add_new_story">Add new Story</string>
     <string name="story_title">Title for Your Story</string>
     <string name="story_description">Description for Your Story</string>
+    <string name="err_title_max">%1$s 25 char max</string>
+    <string name="err_desc_max">%1$s 100 char max</string>
     <string name="detail_image">User Uploaded Image</string>
-    <string name="detail_original">see original</string>
+    <string name="detail_original">See Original</string>
     <string name="profile">Profile</string>
     <string name="name">Name</string>
     <string name="token">Token</string>
-    <string name="fail_to_load_story">Fail to Load Story</string>
+    <string name="fail_to_load_story">Failed to Load Story</string>
     <string name="conn_check">Check your connection!</string>
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="fetch_internet">Always Online Fetch</string>
-    <string name="fetch_internet_desc">Keep Story Up to Date</string>
-
-
+    <string name="fetch_internet_desc">Internet Connection Needed!</string>
+    <string name="camera_fail">Failed to open camera.</string>
+    <string name="capture_fail">Failed to capture image.</string>
+    <string name="err_email">Invalid email</string>
+    <string name="err_password">Password must be at least 8 characters</string>
+    <string name="err_username">Username must be at least 8 characters</string>
+    <string name="btn_enabled">SUBMIT</string>
+    <string name="btn_disabled">INVALID INPUT</string>
+    <string name="err_internet">Internet Needed to Post Story</string>
+    <string name="err_media">Please upload an image</string>
+    <string name="permission_true">Permission request granted</string>
+    <string name="permission_false">Permission request denied</string>
+    <string name="story_true">Story created</string>
+    <string name="story_false">Failed to upload image</string>
+    <string name="err_create">%1$s must be at least 3 words</string>
 </resources>

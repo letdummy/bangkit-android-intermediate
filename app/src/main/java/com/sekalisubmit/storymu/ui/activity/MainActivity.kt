@@ -27,9 +27,9 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                Toast.makeText(this, "Permission request granted", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.permission_true), Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Permission request denied", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.permission_false), Toast.LENGTH_LONG).show()
             }
         }
 
@@ -80,7 +80,6 @@ class MainActivity : AppCompatActivity() {
                     if (currentDestination == R.id.homeFragment) {
                         // I implemented this to make sure that the feed fragment is refreshed when user click on the feed menu
                         // I don't know if this is the best way to do it
-
                         navController.navigate(HomeFragmentDirections.actionHomeFragmentSelf())
                     } else if (currentDestination == R.id.profileFragment) {
                         navController.navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
@@ -91,7 +90,12 @@ class MainActivity : AppCompatActivity() {
                     false
                 }
                 R.id.menu_profile -> {
-                    navController.navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+                    val currentDestination = navController.currentDestination?.id
+                    if (currentDestination == R.id.homeFragment) {
+                        navController.navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+                    } else if (currentDestination == R.id.profileFragment) {
+                        navController.navigate(ProfileFragmentDirections.actionProfileFragmentSelf())
+                    }
                     true
                 }
                 else -> false
@@ -99,7 +103,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.addStory.setOnClickListener {
-            navController.navigate(HomeFragmentDirections.actionHomeFragmentToCreateActivity())
+            // to avoid illegal state exception
+            val currentDestination = navController.currentDestination?.id
+            if (currentDestination == R.id.homeFragment) {
+                navController.navigate(HomeFragmentDirections.actionHomeFragmentToCreateActivity())
+            } else if (currentDestination == R.id.profileFragment) {
+                navController.navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
+                binding.btnNav.selectedItemId = R.id.menu_feed
+                navController.navigate(HomeFragmentDirections.actionHomeFragmentToCreateActivity())
+            }
         }
     }
 

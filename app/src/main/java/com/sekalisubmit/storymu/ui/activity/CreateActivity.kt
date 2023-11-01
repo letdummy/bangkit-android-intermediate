@@ -19,6 +19,7 @@ import androidx.core.net.toUri
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputLayout
+import com.sekalisubmit.storymu.R
 import com.sekalisubmit.storymu.data.local.UserPreference
 import com.sekalisubmit.storymu.data.local.dataStore
 import com.sekalisubmit.storymu.data.remote.retrofit.ApiConfig
@@ -63,7 +64,8 @@ class CreateActivity : AppCompatActivity() {
                 if (isInternetConnected()) {
                     handleSubmission()
                 } else {
-                    Toast.makeText(this@CreateActivity, "Internet Needed to Post Story", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CreateActivity,
+                        getString(R.string.err_internet), Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -77,12 +79,25 @@ class CreateActivity : AppCompatActivity() {
 
     private fun validateTextCount(text: CharSequence?, textInputLayout: TextInputLayout) {
         val wordCount = text?.trim()?.split(" ")?.size ?: 0
+        Log.d("CreateActivity", "hint: ${textInputLayout.hint}")
         if (wordCount < 3) {
-            textInputLayout.error = "${textInputLayout.hint} must be at least 3 words"
+            textInputLayout.error = getString(R.string.err_create, textInputLayout.hint)
             binding.buttonAdd.isEnabled = false
         } else {
             textInputLayout.error = null
             binding.buttonAdd.isEnabled = true
+        }
+
+        if (textInputLayout.hint == getString(R.string.story_title)) {
+            if ((text?.length ?: 0) > 25) {
+                textInputLayout.error = getString(R.string.err_title_max, textInputLayout.hint)
+                binding.buttonAdd.isEnabled = false
+            }
+        } else {
+            if ((text?.length ?: 0) > 100) {
+                textInputLayout.error = getString(R.string.err_desc_max, textInputLayout.hint)
+                binding.buttonAdd.isEnabled = false
+            }
         }
     }
 
@@ -105,13 +120,13 @@ class CreateActivity : AppCompatActivity() {
                         null,
                         null
                     )
-
-                    Log.d("CreateActivity", "handleSubmission: ${response.message}")
+                    Log.d("CreateActivity", "handleSubmission: $response")
                     binding.loadingHandler.visibility = View.GONE
-                    Toast.makeText(this@CreateActivity, "Story created", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CreateActivity,
+                        getString(R.string.story_true), Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {
-                    Log.e("CreateActivity", "handleSubmission: ${e.message}", e)
-                    Toast.makeText(this@CreateActivity, "Failed to upload image", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CreateActivity,
+                        getString(R.string.story_false), Toast.LENGTH_SHORT).show()
                 }
 
                 delay(3000)
@@ -119,7 +134,8 @@ class CreateActivity : AppCompatActivity() {
                 finish()
             }
         } else {
-            Toast.makeText(this, "Please upload an image", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.err_media), Toast.LENGTH_SHORT).show()
+            binding.loadingHandler.visibility = View.GONE
         }
     }
 
@@ -136,7 +152,6 @@ class CreateActivity : AppCompatActivity() {
         inputStream.close()
         return myFile
     }
-
 
     // Gallery handler
     private fun startGallery() {
@@ -169,7 +184,6 @@ class CreateActivity : AppCompatActivity() {
     // Image handler
     private fun showImage() {
         currentImageUri?.let {
-            Log.d("Image URI", "showImage: $it")
             binding.imgStory.setImageURI(it)
             binding.imgStory.scaleType = ImageView.ScaleType.CENTER_CROP
         }
@@ -181,9 +195,9 @@ class CreateActivity : AppCompatActivity() {
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                Toast.makeText(this, "Permission request granted", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.permission_true), Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Permission request denied", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.permission_false), Toast.LENGTH_LONG).show()
             }
         }
 

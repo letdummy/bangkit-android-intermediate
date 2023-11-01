@@ -2,18 +2,6 @@ package com.sekalisubmit.storymu.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class DetailStoryResponse(
-
-	@field:SerializedName("error")
-	val error: Boolean? = null,
-
-	@field:SerializedName("message")
-	val message: String? = null,
-
-	@field:SerializedName("story")
-	val story: Story? = null
-)
-
 data class Story(
 
 	@field:SerializedName("photoUrl")

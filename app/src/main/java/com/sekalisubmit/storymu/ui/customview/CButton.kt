@@ -43,8 +43,8 @@ class CButton : AppCompatButton {
         gravity = Gravity.CENTER
 
         text = when {
-            isEnabled -> textEnable ?: "SUBMIT"
-            else -> textDisable ?: "INVALID INPUT"
+            isEnabled -> textEnable ?: context.getString(R.string.btn_enabled)
+            else -> textDisable ?: context.getString(R.string.btn_disabled)
         }
     }
 
@@ -58,7 +58,7 @@ class CButton : AppCompatButton {
             typedArray.recycle()
         }
 
-        txtColor = ContextCompat.getColor(context, android.R.color.background_light)
+        txtColor = ContextCompat.getColor(context, R.color.dark_text)
         enabledBackground = ContextCompat.getDrawable(context, R.drawable.bg_button) as Drawable
         disabledBackground = ContextCompat.getDrawable(context, R.drawable.bg_button_disable) as Drawable
     }

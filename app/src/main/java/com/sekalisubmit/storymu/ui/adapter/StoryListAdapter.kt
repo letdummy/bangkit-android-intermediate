@@ -49,8 +49,9 @@ class StoryListAdapter : ListAdapter<Story, StoryListAdapter.ViewHolder>(DiffCal
 
 
             val text = story.description?.split("\\s+".toRegex())
-            val maxDesc = 20
+            val maxDesc = 10
 
+            // I already test this with weird input of description, and it works fine
             if ((text?.size ?: 0) > 3) {
                 title.text = text?.subList(0, 3)?.joinToString(" ") ?: ""
 
@@ -62,10 +63,10 @@ class StoryListAdapter : ListAdapter<Story, StoryListAdapter.ViewHolder>(DiffCal
                 }
             } else {
                 story.description?.length?.let {
-                    if (it in 26..200){
+                    if (it in 26..100){
                         title.text = "${story.description?.substring(0, 25)}"
                         description.text = "${story.description?.substring(25, it)}.."
-                    } else if (it > 200) {
+                    } else if (it > 100) {
                         title.text = "${story.description?.substring(0, 25)}"
                         description.text = "${story.description?.substring(25, 59)}.."
                     } else {

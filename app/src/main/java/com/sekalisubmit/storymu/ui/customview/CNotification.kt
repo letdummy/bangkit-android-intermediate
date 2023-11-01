@@ -76,9 +76,19 @@ class CNotification: ConstraintLayout {
                         notification.contentDescription = context.getString(R.string.ne_passwordInvalid)
                     }
 
+                    "userNotFound" -> {
+                        nfText.text = context.getString(R.string.ne_userNotFound)
+                        notification.contentDescription = context.getString(R.string.ne_userNotFound)
+                    }
+
                     "noInternet" -> {
                         nfText.text = context.getString(R.string.no_internet_connection)
                         notification.contentDescription = context.getString(R.string.no_internet_connection)
+                    }
+
+                    "unknown" -> {
+                        nfText.text = context.getString(R.string.ne_unknown)
+                        notification.contentDescription = context.getString(R.string.ne_unknown)
                     }
                 }
             }

@@ -67,7 +67,7 @@
             android:id="@+id/action_homeFragment_to_createActivity"
             app:destination="@id/createActivity"
             app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -87,5 +87,13 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_self"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_createActivity"
+            app:destination="@id/createActivity"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

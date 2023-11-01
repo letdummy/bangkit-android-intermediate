@@ -122,6 +122,7 @@
         app:thumbTint="@color/accent"
         />
 
+
     <com.sekalisubmit.storymu.ui.customview.CButton
         android:id="@+id/logoutProfile"
         android:layout_width="150dp"
@@ -130,7 +131,7 @@
         app:layout_constraintStart_toStartOf="@+id/profile"
         android:layout_marginTop="100dp"
         android:fontFamily="@font/quicksand_bold"
-        app:textEnable="LOGOUT"
+        app:textEnable="@string/logout"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

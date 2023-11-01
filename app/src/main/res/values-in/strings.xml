@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StoryMu</string>
+
+    <string name="app_logo">Logo StoryMu</string>
+    <string name="header">Selamat datang di StoryMu</string>
+    <string name="welcome">Halo, </string>
+
+    <string name="header_1">Terbitkan\nCerita\nMenakjubkanmu</string>
+    <string name="header_2">Bagikan\nPerjalanan\nKode-mu</string>
+    <string name="header_3">Posting\nAnalisis\nMilikmu</string>
+    <string name="login">Masuk</string>
+    <string name="login_hook">Belum punya akun?</string>
+    <string name="sign_up">Daftar</string>
+    <string name="email">Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="signup_hook">Sudah punya akun?</string>
+    <string name="username">Nama Pengguna</string>
+    <string name="logout">Keluar</string>
+
+    <!-- Notification Strings -->
+    <string name="ne_emailTaken">Email sudah digunakan</string>
+    <string name="ne_emailInvalid">Email tidak valid</string>
+    <string name="ne_passwordInvalid">Kata sandi tidak valid</string>
+    <string name="ne_userNotFound">User tidak ditemukan</string>
+    <string name="ne_unknown">Kesalahan tidak diketahui</string>
+    <string name="ns_login">Berhasil masuk</string>
+    <string name="ns_register">Berhasil mendaftar</string>
+
+    <!-- Item Layout Strings -->
+    <string name="item_image">Gambar diunggah oleh pengguna</string>
+    <string name="item_author">oleh Tokopedia</string>
+    <string name="item_title">Cara membuka toko di Tokopedia</string>
+    <string name="item_description">Lorem ipsum dolor sit amet.</string>
+
+    <!-- Menu Item -->
+    <string name="take_picture">Ambil Gambar</string>
+    <string name="switch_camera">Ganti Kamera</string>
+    <string name="story_image">Gambar yang akan diunggah</string>
+    <string name="add_new_story">Tambah Cerita Baru</string>
+    <string name="story_title">Judul Ceritamu</string>
+    <string name="story_description">Deskripsi Ceritamu</string>
+    <string name="err_title_max">%1$s maksimal 25 karakter</string>
+    <string name="err_desc_max">%1$s maksimal 100 karakter</string>
+    <string name="detail_image">Gambar yang diunggah oleh Pengguna</string>
+    <string name="detail_original">lihat asli</string>
+    <string name="profile">Profil</string>
+    <string name="name">Nama</string>
+    <string name="token">Token</string>
+    <string name="fail_to_load_story">Gagal memuat cerita</string>
+    <string name="conn_check">Periksa koneksi Anda!</string>
+    <string name="no_internet_connection">Tidak Ada Koneksi Internet</string>
+    <string name="fetch_internet">Selalu Muat Daring</string>
+    <string name="fetch_internet_desc">Membutuhkan Koneksi Internet!</string>
+    <string name="camera_fail">Gagal membuka kamera.</string>
+    <string name="capture_fail">Gagal mengambil gambar.</string>
+    <string name="err_email">Email tidak valid</string>
+    <string name="err_password">Kata sandi minimal harus 8 karakter</string>
+    <string name="err_username">Nama pengguna minimal harus 8 karakter</string>
+    <string name="btn_enabled">KIRIM</string>
+    <string name="btn_disabled">INPUT TIDAK SAH</string>
+    <string name="err_internet">Perlu Koneksi Internet Untuk Mengunggah</string>
+    <string name="err_media">Harap unggah sebuah gambar</string>
+    <string name="permission_true">Permintaan izin disetujui</string>
+    <string name="permission_false">Permintaan izin ditolak</string>
+    <string name="story_true">Cerita berhasil dibuat</string>
+    <string name="story_false">Gagal mengunggah gambar</string>
+    <string name="err_create">%1$s harus memiliki minimal 3 kata</string>
+</resources>

@@ -4,26 +4,33 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sekalisubmit.storymu.R
 import com.sekalisubmit.storymu.data.local.UserPreference
 import com.sekalisubmit.storymu.data.local.dataStore
 import com.sekalisubmit.storymu.data.local.room.FetchPreference
+import com.sekalisubmit.storymu.data.repository.LoginRepository
 import com.sekalisubmit.storymu.databinding.FragmentHomeBinding
 import com.sekalisubmit.storymu.ui.adapter.StoryListAdapter
 import com.sekalisubmit.storymu.ui.viewmodel.HomeViewModel
 import com.sekalisubmit.storymu.ui.viewmodel.ProfileViewModel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
+    private lateinit var token: String
 
-    private var alwaysOnline: Boolean = false
+    private var alwaysOnline: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +44,10 @@ class HomeFragment : Fragment() {
         val profileViewModel = ProfileViewModel(fetchPref)
         profileViewModel.getFetch().observe(requireActivity()) { fetch ->
             alwaysOnline = fetch
+        }
+
+        lifecycleScope.launch {
+            token = pref.getToken().first()
         }
 
         setupRecyclerView()
@@ -58,9 +69,14 @@ class HomeFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun observeUserData() {
         viewModel.token.observe(viewLifecycleOwner) { token ->
+            Log.d("HomeFragment", "token default: $token")
             token?.takeIf { it.isNotBlank() }?.let {
-                viewModel.getUser().observe(viewLifecycleOwner) { user ->
-                    binding.userHandler.text = "Welcome, ${user.name}"
+                Log.d("HomeFragment", "filter not blank: $it")
+                val loginRepository = LoginRepository(requireActivity().application)
+                loginRepository.getUserData(it).observe(viewLifecycleOwner) { user ->
+                    val welcome = getString(R.string.welcome)
+                    Log.d("HomeFragment", "inside repo: $user")
+                    binding.userHandler.text = "$welcome ${user.name}"
                 }
             }
         }

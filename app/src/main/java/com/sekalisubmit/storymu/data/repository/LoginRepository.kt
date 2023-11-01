@@ -24,12 +24,12 @@ class LoginRepository(application: Application) {
         }
     }
 
-    fun delete() {
+    fun delete(login: Login) {
         executorService.execute {
-            loginDao.delete()
+            loginDao.delete(login)
         }
     }
 
-    fun getUserData(): LiveData<Login> = loginDao.getUserData()
+    fun getUserData(token: String): LiveData<Login> = loginDao.getUserData(token)
 
 }

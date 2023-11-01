@@ -12,14 +12,20 @@ import com.sekalisubmit.storymu.R
 import com.sekalisubmit.storymu.data.local.UserPreference
 import com.sekalisubmit.storymu.data.local.dataStore
 import com.sekalisubmit.storymu.data.local.room.FetchPreference
+import com.sekalisubmit.storymu.data.local.room.login.Login
 import com.sekalisubmit.storymu.data.repository.LoginRepository
 import com.sekalisubmit.storymu.databinding.FragmentProfileBinding
 import com.sekalisubmit.storymu.ui.viewmodel.ProfileViewModel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class ProfileFragment : Fragment() {
     private var _binding : FragmentProfileBinding? = null
     private val binding get() = _binding!!
+
+    private var token: String = ""
+    private lateinit var login: Login
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,6 +34,13 @@ class ProfileFragment : Fragment() {
         val loginRepository = LoginRepository(requireActivity().application)
         val pref = UserPreference.getInstance(requireContext().dataStore)
         val fetchPref = FetchPreference.getInstance(requireContext().dataStore)
+
+        lifecycleScope.launch {
+            token = pref.getToken().first()
+            loginRepository.getUserData(token).observe(viewLifecycleOwner) { user ->
+                login = user
+            }
+        }
 
         val profileViewModel = ProfileViewModel(fetchPref)
 
@@ -38,7 +51,7 @@ class ProfileFragment : Fragment() {
             profileViewModel.saveFetch(isChecked)
         }
 
-        loginRepository.getUserData().observe(viewLifecycleOwner) { user ->
+        loginRepository.getUserData(token).observe(viewLifecycleOwner) { user ->
             binding.nameProfileText.text = user.name
             binding.emailProfileText.text = user.email
             val token = user.token
@@ -48,17 +61,20 @@ class ProfileFragment : Fragment() {
 
         binding.logoutProfile.setOnClickListener {
             lifecycleScope.launch {
-                pref.deleteToken()
+                runBlocking {
+                    pref.deleteToken()
+                    loginRepository.delete(login)
+                }
+
+                findNavController().navigate(R.id.action_profileFragment_to_homeFragment)
+
+                val bottomNavigationView: BottomNavigationView = requireActivity().findViewById(R.id.btn_nav)
+                bottomNavigationView.selectedItemId = R.id.menu_feed
+
+                val bottomNav = requireActivity().findViewById<View>(R.id.bottom_nav)
+                bottomNav.visibility = View.GONE
             }
-            findNavController().navigate(R.id.action_profileFragment_to_homeFragment)
-
-            val bottomNavigationView: BottomNavigationView = requireActivity().findViewById(R.id.btn_nav)
-            bottomNavigationView.selectedItemId = R.id.menu_feed
-
-            val bottomNav = requireActivity().findViewById<View>(R.id.bottom_nav)
-            bottomNav.visibility = View.GONE
         }
-
 
         return binding.root
     }

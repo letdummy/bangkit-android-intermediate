@@ -2,7 +2,6 @@ package com.sekalisubmit.storymu.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.sekalisubmit.storymu.data.local.UserPreference
@@ -14,9 +13,6 @@ import com.sekalisubmit.storymu.data.repository.LoginRepository
 
 class RegisterViewModel (application: Application, private val pref: UserPreference): ViewModel() {
     private val userRepository: LoginRepository by lazy { LoginRepository(application) }
-
-    private val _register = MutableLiveData<RegisterResponse>()
-    val register get() = _register
 
     suspend fun register(username: String, email: String, password: String): RegisterResponse {
         val apiService = ApiConfig.getApiService("")
