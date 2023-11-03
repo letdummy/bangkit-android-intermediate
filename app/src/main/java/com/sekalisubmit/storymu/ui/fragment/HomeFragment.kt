@@ -2,6 +2,7 @@ package com.sekalisubmit.storymu.ui.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
@@ -18,13 +19,14 @@ import com.sekalisubmit.storymu.data.local.dataStore
 import com.sekalisubmit.storymu.data.local.room.FetchPreference
 import com.sekalisubmit.storymu.data.repository.LoginRepository
 import com.sekalisubmit.storymu.databinding.FragmentHomeBinding
+import com.sekalisubmit.storymu.ui.activity.MapsActivity
 import com.sekalisubmit.storymu.ui.adapter.StoryListAdapter
 import com.sekalisubmit.storymu.ui.viewmodel.HomeViewModel
 import com.sekalisubmit.storymu.ui.viewmodel.ProfileViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment() {
+class   HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
@@ -50,9 +52,17 @@ class HomeFragment : Fragment() {
             token = pref.getToken().first()
         }
 
+        viewModel.stories.observe(viewLifecycleOwner) { stories ->
+            Log.d("HomeFragment", "onCreateView: $stories")
+            stories.forEach {
+                Log.d("HomeFragment", "onCreateView: ${it?.name}")
+            }
+        }
+
         setupRecyclerView()
         observeUserData()
         loadingHandler()
+        mapHandler()
 
         return binding.root
     }
@@ -68,23 +78,21 @@ class HomeFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun observeUserData() {
         viewModel.token.observe(viewLifecycleOwner) { token ->
-            Log.d("HomeFragment", "token default: $token")
             token?.takeIf { it.isNotBlank() }?.let {
-                Log.d("HomeFragment", "filter not blank: $it")
                 val loginRepository = LoginRepository(requireActivity().application)
                 loginRepository.getUserData(it).observe(viewLifecycleOwner) { user ->
                     val welcome = getString(R.string.welcome)
-                    Log.d("HomeFragment", "inside repo: $user")
                     binding.userHandler.text = "$welcome ${user.name}"
                 }
             }
         }
     }
 
-    fun fetchStory() {
+    private fun fetchStory() {
         if (isInternetConnected()) {
             viewModel.token.observe(viewLifecycleOwner) { token ->
                 token?.takeIf { it.isNotBlank() }?.let { nonEmptyToken ->
+                    binding.rvHome.visibility = View.GONE
                     viewModel.fetchStories(nonEmptyToken)
                     onlineLoadStories()
                 }
@@ -96,14 +104,18 @@ class HomeFragment : Fragment() {
 
     private fun handleNoInternetConnection() {
         if (alwaysOnline) {
-            binding.rvHome.visibility = View.GONE
-            binding.loadingHandler.visibility = View.GONE
-            binding.failHandler.visibility = View.VISIBLE
+            noInternetHelper()
         } else {
-            binding.failHandler.visibility = View.GONE
-            binding.loadingHandler.visibility = View.GONE
-            binding.rvHome.visibility = View.VISIBLE
+            noInternetHelper()
             loadStories()
+        }
+    }
+
+    private fun noInternetHelper(){
+        binding.apply {
+            rvHome.visibility = View.GONE
+            loadingHandler.visibility = View.GONE
+            failHandler.visibility = View.VISIBLE
         }
     }
 
@@ -133,6 +145,13 @@ class HomeFragment : Fragment() {
         val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = connectivityManager.activeNetwork
         return activeNetwork != null
+    }
+
+    private fun mapHandler() {
+        binding.btnMap.setOnClickListener {
+            val intent = Intent(requireContext(), MapsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun loadingHandler() {

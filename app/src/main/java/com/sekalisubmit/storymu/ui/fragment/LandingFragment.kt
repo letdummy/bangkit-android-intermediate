@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.sekalisubmit.storymu.R
 import com.sekalisubmit.storymu.databinding.FragmentLandingBinding
 
 
@@ -23,11 +24,11 @@ class LandingFragment : Fragment() {
         _binding = FragmentLandingBinding.inflate(inflater, container, false)
 
         binding.btnLogin.setOnClickListener {
-            navController.navigate(LandingFragmentDirections.actionLandingFragmentToLoginFragment())
+            navController.navigate(R.id.action_landingFragment_to_loginFragment)
         }
 
         binding.btnRegister.setOnClickListener {
-            navController.navigate(LandingFragmentDirections.actionLandingFragmentToRegisterFragment())
+            navController.navigate(R.id.action_landingFragment_to_registerFragment)
         }
 
         return binding.root

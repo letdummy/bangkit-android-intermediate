@@ -7,10 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sekalisubmit.storymu.data.local.UserPreference
-import com.sekalisubmit.storymu.data.local.room.login.Login
 import com.sekalisubmit.storymu.data.local.room.story.Story
 import com.sekalisubmit.storymu.data.remote.retrofit.ApiConfig
-import com.sekalisubmit.storymu.data.repository.LoginRepository
 import com.sekalisubmit.storymu.data.repository.StoryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -22,7 +20,6 @@ class HomeViewModel(application: Application, pref: UserPreference): ViewModel()
     val token: LiveData<String?> = _token
 
     private val storyRepository = StoryRepository(application)
-    private val loginRepository = LoginRepository(application)
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -35,10 +32,6 @@ class HomeViewModel(application: Application, pref: UserPreference): ViewModel()
     }
 
     fun getStoryDB() = storyRepository.getStories()
-
-    fun getUser(token: String): LiveData<Login> {
-        return loginRepository.getUserData(token)
-    }
 
     private fun loadTokenFromPref(pref: UserPreference) {
         viewModelScope.launch(Dispatchers.IO) {

@@ -20,16 +20,6 @@ import com.sekalisubmit.storymu.data.local.room.story.Story
 import com.sekalisubmit.storymu.ui.activity.DetailActivity
 
 class StoryListAdapter : ListAdapter<Story, StoryListAdapter.ViewHolder>(DiffCallback) {
-
-    companion object DiffCallback: DiffUtil.ItemCallback<Story>() {
-        override fun areItemsTheSame(oldStory: Story, newStory: Story): Boolean {
-            return oldStory === newStory
-        }
-
-        override fun areContentsTheSame(oldStory: Story, newStory: Story): Boolean {
-            return oldStory.id == newStory.id
-        }
-    }
     class ViewHolder(itemLayout: View): RecyclerView.ViewHolder(itemLayout) {
         private var image: ImageView = itemLayout.findViewById(R.id.iv_item_photo)
         private var title: TextView = itemLayout.findViewById(R.id.item_title)
@@ -103,5 +93,15 @@ class StoryListAdapter : ListAdapter<Story, StoryListAdapter.ViewHolder>(DiffCal
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val story = getItem(position)
         holder.init(story)
+    }
+
+    companion object DiffCallback: DiffUtil.ItemCallback<Story>() {
+        override fun areItemsTheSame(oldStory: Story, newStory: Story): Boolean {
+            return oldStory === newStory
+        }
+
+        override fun areContentsTheSame(oldStory: Story, newStory: Story): Boolean {
+            return oldStory.id == newStory.id
+        }
     }
 }

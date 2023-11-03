@@ -38,6 +38,11 @@ interface ApiService {
         @Query("location") location: Int? = null
     ): GetStoryResponse
 
+    @GET("stories")
+    suspend fun getStoriesWithLocation(
+        @Query("location") location : Int = 1,
+    ): GetStoryResponse
+
     @POST("stories")
     @Multipart
     suspend fun postStory(

@@ -16,4 +16,7 @@ interface StoryDao {
 
     @Query("SELECT * FROM story ORDER BY createdAt DESC")
     fun getStoryData(): LiveData<List<Story>>
+
+    @Query("SELECT * FROM story WHERE lat IS NOT NULL AND lon IS NOT NULL")
+    fun getStoryWithLocation(): LiveData<List<Story>>
 }

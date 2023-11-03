@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
+import com.sekalisubmit.storymu.R
 import com.sekalisubmit.storymu.data.local.UserPreference
 import com.sekalisubmit.storymu.data.local.dataStore
 import com.sekalisubmit.storymu.data.local.room.login.Login
@@ -36,10 +37,6 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding =  FragmentRegisterBinding.inflate(inflater, container, false)
-
-        binding.tvLogin.setOnClickListener {
-            navController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
-        }
 
         val pref = UserPreference.getInstance(requireContext().dataStore)
         viewModel = RegisterViewModel(requireActivity().application, pref)
@@ -71,13 +68,18 @@ class RegisterFragment : Fragment() {
     }
 
     private fun navigateToLoginFragment() {
-        navController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+        navController.navigate(R.id.action_registerFragment_to_loginFragment)
     }
 
-    private fun validateInputFields() {
+    private fun getInputValues(): Triple<String, String, String> {
         val username = binding.edRegisterName.text.toString()
         val email = binding.edRegisterEmail.text.toString()
         val password = binding.edRegisterPassword.text.toString()
+        return Triple(username, email, password)
+    }
+
+    private fun validateInputFields() {
+        val (username, email, password) = getInputValues()
 
         val isUsernameValid = username.isNotEmpty() && username.length >= 8
         val isEmailValid = email.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -99,6 +101,7 @@ class RegisterFragment : Fragment() {
                 }
             } catch (e: HttpException) {
                 withContext(Dispatchers.Main) {
+                    binding.loadingHandler.visibility = View.GONE
                     handleRegisterError(e)
                 }
             }
@@ -176,7 +179,7 @@ class RegisterFragment : Fragment() {
     }
 
     private fun navigateToHomeFragment() {
-        navController.navigate(RegisterFragmentDirections.actionRegisterFragmentToHomeFragment())
+        navController.navigate(R.id.action_registerFragment_to_homeFragment)
     }
 
 

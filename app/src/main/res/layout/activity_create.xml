@@ -23,9 +23,10 @@
         android:id="@+id/galleryButton"
         android:layout_width="152dp"
         android:layout_height="wrap_content"
+        android:textColor="?android:attr/colorControlNormal"
         app:layout_constraintTop_toBottomOf="@+id/imgStory"
         app:layout_constraintStart_toStartOf="@+id/imgStory"
-        android:layout_marginVertical="15dp"
+        android:layout_marginVertical="20dp"
         app:textEnable="GALLERY"
         />
 
@@ -33,6 +34,7 @@
         android:id="@+id/cameraXButton"
         android:layout_width="152dp"
         android:layout_height="wrap_content"
+        android:textColor="?android:attr/colorControlNormal"
         app:layout_constraintTop_toTopOf="@+id/galleryButton"
         app:layout_constraintEnd_toEndOf="@+id/imgStory"
         app:textEnable="CAMERA X"
@@ -44,9 +46,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/imgStory"
         app:layout_constraintTop_toBottomOf="@+id/galleryButton"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:hintTextColor="?android:attr/colorControlNormal"
         android:textColorHint="?android:attr/colorControlNormal"
+        android:background="@drawable/gradient_setting"
         android:hint="@string/story_title">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -65,23 +68,74 @@
         app:layout_constraintStart_toStartOf="@+id/imgStory"
         app:layout_constraintTop_toBottomOf="@+id/titleStory"
         android:layout_marginTop="10dp"
+        android:background="@drawable/gradient_setting"
         app:hintTextColor="?android:attr/colorControlNormal"
         android:textColorHint="?android:attr/colorControlNormal"
         android:hint="@string/story_description">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:background="@color/dark_tertiary"
             android:textColor="?android:attr/colorControlNormal"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/locFeature"
+        android:layout_width="320dp"
+        android:layout_height="90dp"
+        android:background="@drawable/gradient_setting"
+        app:layout_constraintTop_toBottomOf="@+id/ed_add_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        >
+
+        <TextView
+            android:id="@+id/includeLoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Include Location"
+            android:fontFamily="@font/quicksand_bold"
+            android:textSize="15sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
+            />
+
+        <TextView
+            android:id="@+id/includeLocText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let everyone know your location"
+            android:fontFamily="@font/quicksand_regular"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/includeLoc"
+            app:layout_constraintStart_toStartOf="@+id/includeLoc"
+            />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchLoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/includeLoc"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="100dp"
+            android:checked="false"
+            app:thumbTint="@color/accent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.sekalisubmit.storymu.ui.customview.CButton
         android:id="@+id/button_add"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
+        android:textColor="?android:attr/colorControlNormal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imgStory"
         android:layout_marginBottom="40dp"

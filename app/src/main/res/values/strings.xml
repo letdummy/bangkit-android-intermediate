@@ -66,4 +66,12 @@
     <string name="story_true">Story created</string>
     <string name="story_false">Failed to upload image</string>
     <string name="err_create">%1$s must be at least 3 words</string>
+
+
+    <!-- Map -->
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
+    <string name="story_loc">Story Location Finder</string>
 </resources>

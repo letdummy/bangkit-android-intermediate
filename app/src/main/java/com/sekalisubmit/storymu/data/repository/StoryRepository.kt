@@ -25,4 +25,6 @@ class StoryRepository(application: Application) {
 
     fun getStories() = storyDao.getStoryData()
 
+    fun getStoriesWithLocation() = storyDao.getStoryWithLocation()
+
 }

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sekalisubmit.storymu.R
 
 class Splash : AppCompatActivity() {
+    private val duration: Long = 3000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -16,6 +17,6 @@ class Splash : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
+        }, duration)
     }
 }

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
+import com.sekalisubmit.storymu.R
 import com.sekalisubmit.storymu.data.local.UserPreference
 import com.sekalisubmit.storymu.data.local.dataStore
 import com.sekalisubmit.storymu.data.local.room.login.Login
@@ -67,21 +68,24 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun validateInputFields() {
-        // check if email and password is valid
+    private fun getInputValue(): Pair<String, String> {
         val email = binding.edLoginEmail.text.toString()
         val password = binding.edLoginPassword.text.toString()
+        return Pair(email, password)
+    }
 
+    private fun validateInputFields() {
+        // check if email and password is valid
+        val (email, password) = getInputValue()
 
-        val isEmailValid = email.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        val isPasswordValid = password.isNotEmpty() && password.length >= 8
+        val isEmailValid = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        val isPasswordValid = password.length >= 8
 
         binding.btnLogin.isEnabled = isEmailValid && isPasswordValid
     }
 
     private fun login() {
-        val email = binding.edLoginEmail.text.toString()
-        val password = binding.edLoginPassword.text.toString()
+        val (email, password) = getInputValue()
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
@@ -134,11 +138,11 @@ class LoginFragment : Fragment() {
     }
 
     private fun navigateToRegisterFragment() {
-        navController.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+        navController.navigate(R.id.action_loginFragment_to_registerFragment)
     }
 
     private fun navigateToHomeFragment() {
-        navController.navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+        navController.navigate(R.id.action_loginFragment_to_homeFragment)
     }
 
     private fun showNotification(usage: String, type: String) {
